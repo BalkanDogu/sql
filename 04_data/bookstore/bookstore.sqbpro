@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/Balkan/Desktop/git-UofT/sql/04_data/bookstore/bookstore.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2681"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,4:mainbook"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="orders" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths/><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">
+CREATE TABLE employee
+( employee_id INT NOT NULL,
+first_name varchar(255) NOT NULL,
+last_name varchar(255) NOT NULL,
+email varchar(255),
+phone varchar(255),
+PRIMARY KEY(employee_id) )
+
+SELECT *
+from employee
+
+CREATE TABLE customer
+( customer_id INT NOT NULL,
+first_name varchar(255) NOT NULL,
+last_name varchar(255) NOT NULL,
+email varchar(255),
+phone varchar(255),
+PRIMARY KEY(customer_id) )
+
+
+DROP TABLE orders
+CREATE TABLE orders (
+    order_id int NOT NULL,
+    order_num int NOT NULL,
+	customer_id INT NOT NULL,
+	employee_id INT NOT NULL,
+	book_id INT NOT NULL,
+	order_date date,
+	shipped_date date,
+	PRIMARY KEY (order_id),
+    FOREIGN KEY (employee_id) REFERENCES employee(employee_id),
+	FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+	FOREIGN KEY (book_id) REFERENCES book(book_id)
+	FOREIGN KEY (order_date) REFERENCES dates(order_date)
+)
+
+CREATE TABLE book
+( book_id INT NOT NULL,
+book_name varchar(255) NOT NULL,
+author_name varchar(255) NOT NULL,
+book_languange varchar(50),
+public_date date,
+country varchar(50),
+PRIMARY KEY(book_id) )
+
+CREATE TABLE sales
+( sales_id INT NOT NULL,
+order_id int NOT NULL,
+book_id INT NOT NULL,
+quantity int NOT NULL,
+list_price decimal(10,2) NOT NULL,
+discount decimal(4,2) NOT NULL,
+PRIMARY KEY(sales_id),
+FOREIGN KEY (book_id) REFERENCES book(book_id),
+FOREIGN KEY (order_id) REFERENCES orders(order_id) )
+
+CREATE TABLE dates 
+( order_date date,
+A_time time(7) NULL,
+A_date date NULL,
+A_datetime datetime NULL,
+PRIMARY KEY(order_date)
+)
+
+</sql><sql name="SQL 2">
+CREATE TABLE Asset_A
+(
+    code INT NOT NULL,
+    name VARCHAR(150),
+    PRIMARY KEY(code)
+);</sql><sql name="SQL 3">
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
